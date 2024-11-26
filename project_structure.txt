@@ -1,0 +1,58 @@
+.
+├── controllers
+│   ├── admin
+│   │   ├── add-products-from-json-controller.js
+│   │   ├── order-controller.js
+│   │   └── products-controller.js
+│   ├── auth
+│   │   └── auth-controller.js
+│   ├── common
+│   │   └── feature-controller.js
+│   └── shop
+│       ├── address-controller.js
+│       ├── cart-controller.js
+│       ├── categories-controller.js
+│       ├── order-controller.js
+│       ├── product-review-controller.js
+│       ├── products-controller.js
+│       └── search-controller.js
+├── .env
+├── .env.example
+├── .gitignore
+├── helpers
+│   ├── app.js
+│   ├── file-upload.js
+│   └── paypal.js
+├── models
+│   ├── Address.js
+│   ├── Cart.js
+│   ├── Category.js
+│   ├── Feature.js
+│   ├── Order.js
+│   ├── Product.js
+│   ├── Review.js
+│   ├── SubCategory.js
+│   └── User.js
+├── package.json
+├── package-lock.json
+├── project_structure.txt
+├── README.md
+├── routes
+│   ├── admin
+│   │   ├── order-routes.js
+│   │   └── products-routes.js
+│   ├── auth
+│   │   └── auth-routes.js
+│   ├── common
+│   │   └── feature-routes.js
+│   └── shop
+│       ├── address-routes.js
+│       ├── cart-routes.js
+│       ├── categories-routes.js
+│       ├── order-routes.js
+│       ├── products-routes.js
+│       ├── review-routes.js
+│       └── search-routes.js
+└── server.js
+
+12 directories, 43 files

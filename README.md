@@ -1,144 +1,136 @@
-# ShopHive Backend
-
-Welcome to the **ShopHive Backend**, the server-side of the **ShopHive** e-commerce platform. This backend is built with **Node.js**, **Express**, and **MongoDB** to handle product data, user management, orders, and cart functionality.
+Here’s the updated documentation with the new URLs and improved structure for clarity:
 
 ---
 
-## Features
+# **ShopHive Backend**
 
-- **User Authentication**: Secure login and registration with JWT authentication.
-- **Product Management**: Create, update, delete, and retrieve product details.
-- **Category Management**: Manage product categories for easy filtering and organization.
-- **Cart Management**: Handle the addition and removal of products in the user's cart.
-- **Order Processing**: Manage user orders, including payment and status tracking.
-- **Pagination & Sorting**: Efficiently fetch products with pagination and sorting.
+Welcome to the **ShopHive Backend**, the server-side of the **ShopHive** e-commerce platform. Built with **Node.js**, **Express**, and **MongoDB**, it provides robust features like product management, user authentication, and order processing.
 
 ---
 
-## Video Demo
+## **Features**
 
-Check out the live version of the backend (example endpoint):  
-Check out a video demo of **ShopHiveBE**: [ShopHive Backend Demo](https://drive.google.com/file/d/s-AXaddd/view)
+- **User Authentication**: Secure login and registration with JWT.
+- **Product Management**: Add, update, delete, and fetch product details.
+- **Category Management**: Organize and filter products by categories.
+- **Cart Management**: Manage user cart items and quantities.
+- **Order Processing**: Place and track orders with payment integrations.
+- **Address Management**: Handle user shipping addresses.
+- **Reviews**: Allow users to review and rate products.
+- **Pagination & Sorting**: Efficiently fetch data with filters and sorting.
 
 ---
 
-## Installation Guide
+## **API Endpoints**
 
-### Prerequisites
+### **Authentication**
+- **Register**: `POST /api/auth/register`  
+- **Login**: `POST /api/auth/login`  
 
-Ensure you have the following installed:
+---
 
-- **Node.js** (v16 or later)
-- **MongoDB** (locally or use MongoDB Atlas for cloud database)
+### **Addresses**
+- **Add New Address**: `POST /api/shop/address/add`  
+- **Fetch All Addresses**: `GET /api/shop/address/get/:userId`  
+- **Edit Address**: `PUT /api/shop/address/update/:userId/:addressId`  
+- **Delete Address**: `DELETE /api/shop/address/delete/:userId/:addressId`  
 
-### Steps to Run Locally
+---
 
-1. Clone the repository:
+### **Cart**
+- **Add to Cart**: `POST /api/shop/cart/add`  
+- **Fetch Cart Items**: `GET /api/shop/cart/get/:userId`  
+- **Delete Cart Item**: `DELETE /api/shop/cart/:userId/:productId`  
+- **Update Cart Quantity**: `PUT /api/shop/cart/update-cart`  
+
+---
+
+### **Categories**
+- **Fetch All Categories**: `GET /api/shop/categories/get`  
+
+---
+
+### **Orders**
+- **Create New Order**: `POST /api/shop/order/create`  
+- **Capture Payment**: `POST /api/shop/order/capture`  
+- **Get Orders by User**: `GET /api/shop/order/list/:userId`  
+- **Get Order Details**: `GET /api/shop/order/details/:id`  
+
+---
+
+### **Products**
+- **Fetch All Products**: `GET /api/shop/products/get?{queryParams}`  
+  *(Query parameters include filters for categories, price range, and pagination.)*  
+- **Fetch Product Details**: `GET /api/shop/products/get/:id`  
+
+---
+
+### **Reviews**
+- **Add Review**: `POST /api/shop/review/add`  
+- **Get Reviews**: `GET /api/shop/review/get/:id`  
+
+---
+
+## **Installation Guide**
+
+### **Prerequisites**
+- **Node.js** (v16 or later)  
+- **MongoDB** (local instance or MongoDB Atlas)
+
+### **Steps to Run Locally**
+
+1. Clone the repository:  
    ```bash
-   git clone https://github.com/felixkpt/shophive-backend.git
-   cd shophive-backend
+   git clone https://github.com/felixkpt/e-commerce-react-be
+   cd e-commerce-react-be
+   ```
 
-2. Install dependencies:
+2. Install dependencies:  
+   ```bash
+   npm install
+   ```
 
-bash
-Copy code
-npm install
+3. Set up environment variables:  
+   Create a `.env` file in the root directory and add the following:  
+   ```
+   MONGO_URI=mongodb://localhost:27017/shophive
+   JWT_SECRET=your_jwt_secret_key
+   PORT=5000
+   ```
 
-3. Set up environment variables:
+4. Start the server:  
+   ```bash
+   npm start
+   ```  
+   Navigate to `http://localhost:5000`.
 
-Create a .env file in the root directory and set the following:
-makefile
-Copy code
-MONGO_URI=mongodb://localhost:27017/shophive
-JWT_SECRET=your_jwt_secret_key
-PORT=5000
+---
 
-4. Start the server:
+## **Technologies Used**
+- **Backend Framework**: Express.js  
+- **Database**: MongoDB with Mongoose  
+- **Authentication**: JWT (JSON Web Tokens)  
+- **Environment Variables**: Managed using `dotenv`  
 
-bash
-Copy code
-npm start
-Open your browser and navigate to http://localhost:5000.
+---
 
-## API Endpoints
-Here are some of the main API endpoints for ShopHive Backend:
+## **Future Roadmap**
+- **Stripe Integration**: Handle payments securely.  
+- **Advanced Filters**: Add price, rating, and stock filters for products.  
+- **Admin Dashboard**: Comprehensive product and order management.  
+- **Email Notifications**: Send confirmation emails for orders.  
 
-### Authentication
-POST /api/auth/register: Register a new user.
-POST /api/auth/login: Log in and get a JWT token.
+---
 
-### Products
-GET /api/products: Get a list of all products (with pagination).
-POST /api/products: Add a new product (Admin only).
-PUT /api/products/:id: Update a product by ID (Admin only).
-DELETE /api/products/:id: Delete a product by ID (Admin only).
-
-### Categories
-GET /api/categories: Get a list of all categories.
-POST /api/categories: Add a new category (Admin only).
-
-### Cart
-GET /api/cart: Get the current user's cart.
-POST /api/cart: Add a product to the cart.
-PUT /api/cart: Update the cart (e.g., change quantity).
-DELETE /api/cart: Remove a product from the cart.
-
-### Orders
-POST /api/orders: Place a new order.
-GET /api/orders: Get all orders (Admin only).
-GET /api/orders/:id: Get order details by ID (Admin only).
-PUT /api/orders/:id: Update the order status (Admin only).
-
-## Technologies Used
-Backend Framework: Express.js
-Database: MongoDB (using Mongoose for schema management)
-Authentication: JWT (JSON Web Token)
-Middleware: JWT Authentication, Error Handling
-Logging: Winston or Morgan (for logging requests)
-Environment Variables: dotenv for managing sensitive data
-
-## Running Tests
-1. Install the testing dependencies:
-
-bash
-Copy code
-npm install --save-dev jest supertest
-2. Run the tests:
-
-bash
-Copy code
-npm test
-
-## Future Roadmap
-Stripe Integration: Integrate Stripe for handling payments.
-Advanced Filtering: Implement advanced product filters (e.g., by price, rating).
-Admin Dashboard: Develop a comprehensive dashboard for managing products and orders.
-Email Notifications: Implement order confirmation and status change emails.
-
-## Contributing
-We welcome contributions to enhance and improve the ShopHive Backend.
-
-Fork the repository.
-Create a new branch:
-bash
-Copy code
-git checkout -b feature-name
-Make your changes and commit:
-bash
-Copy code
-git commit -m "Add feature description"
-Push your changes:
-bash
-Copy code
-git push origin feature-name
-Open a pull request on GitHub.
-
-## License
+## **License**
 This project is licensed under the MIT License.
 
-## Author
-Author
-Felix Kiptoo Biwott
-GitHub: felixkpt
+---
 
-Thank you for exploring ShopHive Backend! Feel free to contribute or reach out for collaborations. 🚀
+## **Author**
+**Felix Kiptoo Biwott**  
+GitHub: [felixkpt](https://github.com/felixkpt)
+
+---
+
+Feel free to reach out for any collaboration or suggestions! 🚀 
