@@ -137,8 +137,8 @@ Open a pull request on GitHub.
 This project is licensed under the MIT License.
 
 ## Author
+Author
 Felix Kiptoo Biwott
 GitHub: felixkpt
-Email: felixbiwott@gmail.com
 
 Thank you for exploring ShopHive Backend! Feel free to contribute or reach out for collaborations. 🚀
