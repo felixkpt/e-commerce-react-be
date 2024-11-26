@@ -22,7 +22,7 @@ const addProductsFromJson = async (req, res) => {
             console.log('Product:', product)
 
             // Validate required fields
-            if (!product.name || !product.images?.[0] || !product.about || product.rating === undefined || product.price === undefined) {
+            if (!product.name || !product.images?.[0] || !product.about || product.rating === undefined || product.sale_price === undefined) {
                 console.log('Missing required fields in one or more products.')
                 continue
             }
@@ -58,8 +58,8 @@ const addProductsFromJson = async (req, res) => {
                 category: product.category,
                 subcategory: product.sub_category,
                 brand: null,
-                basePrice: product.base_price || product.price,
-                salePrice: product.price,
+                basePrice: product.base_price || product.sale_price,
+                salePrice: product.sale_price,
                 totalStock,
                 reviewCounts: product.review_counts,
                 rating: product.rating,
