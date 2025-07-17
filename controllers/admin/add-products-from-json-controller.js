@@ -3,11 +3,10 @@ const { downloadUtil } = require("../../helpers/file-upload");
 const Product = require("../../models/Product");
 
 const addProductsFromJson = async (req, res) => {
-    const strategy = req.strategy; // Read strategy from request
+    const strategy = req.strategy;
     const { products } = req.body;
 
     try {
-
         if (!products || !Array.isArray(products) || products.length === 0) {
             return res.status(400).json({
                 success: false,
@@ -18,60 +17,49 @@ const addProductsFromJson = async (req, res) => {
         const newlyCreatedProducts = [];
 
         for (const product of products) {
+            console.log('Product:', product);
 
-            console.log('Product:', product)
-
-            // Validate required fields
-            if (!product.name || !product.images?.[0] || !product.about || product.rating === undefined || product.sale_price === undefined) {
-                console.log('Missing required fields in one or more products.')
-                continue
+            if (!product.name || !product.images?.[0] || !product.about || product.rating === undefined || product.salePrice === undefined) {
+                console.log('Missing required fields in one or more products.');
+                continue;
             }
 
-            // Check if the product title already exists
             const existingProduct = await Product.findOne({ title: product.name });
             if (existingProduct) {
-                console.log(`Product with title "${product.name}" already exists.`)
-                continue
+                console.log(`Product with title "${product.name}" already exists.`);
+                continue;
             }
 
-            // Save the first image (optional)
-            const mainImage = product.images[0]; // Main image
-            const imageObj = await downloadUtil(req, mainImage, strategy); // Save image
+            const mainImage = product.images[0];
+            const imageObj = await downloadUtil(req, mainImage, strategy);
 
-            // Randomly pick a stockStatus from predefined options
             const stockOptions = [
                 { id: "in-stock", label: "In Stock" },
                 { id: "out-of-stock", label: "Out of Stock" },
                 { id: "pre-order", label: "Pre-order" },
             ];
-
             const stockStatus = stockOptions[Math.floor(Math.random() * stockOptions.length)].id;
-
-            // Set totalStock to 60 if "in-stock", otherwise randomize between 1 and 1000
             const totalStock = stockStatus === "in-stock" ? 60 : Math.floor(Math.random() * 1000) + 1;
 
-            // Extract data from the JSON input
             const productData = {
                 image: imageObj?.url || null,
                 title: product.name,
                 description: product.about,
-                category: product.category,
-                subcategory: product.sub_category,
+                category: product.categories?.[0] || null,
+                subcategory: product.categories?.[1] || null,
                 brand: null,
-                basePrice: product.base_price || product.sale_price,
-                salePrice: product.sale_price,
+                basePrice: product.basePrice || product.salePrice,
+                salePrice: product.salePrice,
                 totalStock,
-                reviewCounts: product.review_counts,
+                reviewCounts: product.reviewCounts,
                 rating: product.rating,
                 stockStatus,
             };
 
-            const newlyCreatedProduct = await createProduct(productData)
-
+            const newlyCreatedProduct = await createProduct(productData);
             newlyCreatedProducts.push(newlyCreatedProduct);
         }
 
-        // Respond with created products
         res.status(201).json({
             success: true,
             data: newlyCreatedProducts,
@@ -86,5 +74,4 @@ const addProductsFromJson = async (req, res) => {
     }
 };
 
-
-module.exports = { addProductsFromJson }
+module.exports = { addProductsFromJson };

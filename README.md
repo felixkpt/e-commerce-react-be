@@ -35,8 +35,8 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/felixkpt/shophive-backend.git
-   cd shophive-backend
+   git clone https://github.com/felixkpt/shophive-node-be.git
+   cd shophive-node-be
 
 2. Install dependencies:
 
@@ -96,6 +96,7 @@ Authentication: JWT (JSON Web Token)
 Middleware: JWT Authentication, Error Handling
 Logging: Winston or Morgan (for logging requests)
 Environment Variables: dotenv for managing sensitive data
+Payment: Stripe
 
 ## Running Tests
 1. Install the testing dependencies:

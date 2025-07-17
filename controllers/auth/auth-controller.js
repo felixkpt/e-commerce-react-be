@@ -59,6 +59,8 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // await User.updateOne({ _id: checkUser.id }, { role: 'admin' });
+
     // Verify the password
     const checkPasswordMatch = await bcrypt.compare(
       password,
